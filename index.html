@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安心 - 极简个人生活管家</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            health: '#36D399',
+            neutral: {
+              100: '#F5F7FA',
+              200: '#E5E6EB',
+              300: '#C9CDD4',
+              600: '#86909C',
+              800: '#4E5969',
+              900: '#1D2129',
+            }
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style class="inter">
+    * {
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+    .card {
+      @apply bg-white dark:bg-neutral-900 rounded-2xl p-5 shadow-sm border border-neutral-200 dark:border-neutral-800;
+    }
+    .btn-primary {
+      @apply bg-primary text-white px-4 py-2 rounded-lg hover:opacity-90 active:scale-95 shadow;
+    }
+    .btn-health {
+      @apply bg-health text-white px-4 py-2 rounded-lg hover:opacity-90 active:scale-95 shadow;
+    }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .nav-item.active {
+      @apply text-primary border-b-2 border-primary;
+    }
+  </style>
+</head>
+<body class="bg-neutral-100 dark:bg-neutral-900 dark:text-white min-h-screen">
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-neutral-900/80 backdrop-blur border-b border-neutral-200 dark:border-neutral-800 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <h1 class="text-xl font-bold text-primary">安心</h1>
+      <div class="flex gap-6 text-sm font-medium">
+        <span class="nav-item active cursor-pointer" data-page="home">首页</span>
+        <span class="nav-item cursor-pointer" data-page="safe">安全中心</span>
+        <span class="nav-item cursor-pointer" data-page="health">健康管理</span>
+        <span class="nav-item cursor-pointer" data-page="work">职场效率</span>
+        <span class="nav-item cursor-pointer" data-page="setting">设置</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button id="darkModeBtn" class="text-lg"><i class="fa fa-moon-o"></i></button>
+        <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">免费版</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 pt-20 pb-24">
+    <!-- 首页仪表盘 -->
+    <section id="home" class="page active">
+      <div class="mb-6">
+        <h2 class="text-[22px] font-semibold mb-1">下午好👋</h2>
+        <p class="text-neutral-600 dark:text-neutral-600 text-sm">今日状态 · 极简生活管家</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="card">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-medium">安全状态</h3>
+            <i class="fa fa-shield text-primary text-lg"></i>
+          </div>
+          <p class="text-sm text-neutral-600">当前：安全在岗</p>
+          <button class="btn-primary w-full mt-3 text-sm">一键报平安</button>
+        </div>
+        <div class="card">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-medium">健康提醒</h3>
+            <i class="fa fa-heart text-health text-lg"></i>
+          </div>
+          <p class="text-sm text-neutral-600">今日饮水：0/2000ml</p>
+          <button class="btn-health w-full mt-3 text-sm">立即喝水</button>
+        </div>
+        <div class="card">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-medium">今日待办</h3>
+            <i class="fa fa-list text-neutral-800"></i>
+          </div>
+          <p class="text-sm text-neutral-600">暂无待办事项</p>
+          <button class="w-full mt-3 text-sm border border-neutral-300 dark:border-neutral-700 rounded-lg py-2">添加待办</button>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <h3 class="font-medium mb-3">快捷工具</h3>
+        <div class="grid grid-cols-4 gap-3 text-center text-sm">
+          <div class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+            <i class="fa fa-map-o text-primary text-lg block mb-1"></i>
+            位置共享
+          </div>
+          <div class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+            <i class="fa fa-medkit text-health text-lg block mb-1"></i>
+            用药提醒
+          </div>
+          <div class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+            <i class="fa fa-clock-o text-neutral-800 block mb-1"></i>
+            番茄计时
+          </div>
+          <div class="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer">
+            <i class="fa fa-file-text-o text-neutral-800 block mb-1"></i>
+            周报生成
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-primary/20 bg-primary/5">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-medium">升级 Pro 解锁全部能力</h3>
+            <p class="text-xs text-neutral-600 mt-1">7天免费试用 · 多设备同步 · 全功能解锁</p>
+          </div>
+          <button class="btn-primary text-sm">立即开通</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 安全中心 -->
+    <section id="safe" class="page">
+      <h2 class="text-[22px] font-semibold mb-6">安全中心</h2>
+      <div class="card mb-4">
+        <h3 class="font-medium mb-2">一键报平安</h3>
+        <p class="text-sm text-neutral-600 mb-3">设置回家时段，超时自动联系紧急联系人</p>
+        <button class="btn-primary w-full">立即确认平安</button>
+      </div>
+      <div class="card mb-4">
+        <h3 class="font-medium mb-2">临时位置共享</h3>
+        <p class="text-sm text-neutral-600 mb-3">生成24小时有效安全位置链接</p>
+        <button class="w-full border border-primary text-primary rounded-lg py-2">生成共享链接</button>
+      </div>
+      <div class="card opacity-70">
+        <div class="flex justify-between">
+          <h3 class="font-medium">Pro 专属安全能力</h3>
+          <span class="text-xs bg-primary/10 text-primary px-2 rounded-full">Pro</span>
+        </div>
+        <ul class="text-sm text-neutral-600 mt-3 space-y-2">
+          <li>✓ 最多5位紧急联系人</li>
+          <li>✓ 实时位置追踪</li>
+          <li>✓ 紧急录音云端备份</li>
+          <li>✓ 水电煤缴费安全提醒</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 健康管理 -->
+    <section id="health" class="page">
+        <h2 class="text-[22px] font-semibold mb-6">健康管理</h2>      <div class="card mb-4">
+        <h3 class="font-medium mb-2">喝水提醒</h3>
+        <p class="text-sm text-neutral-600">根据体重自动计算每日饮水量</p>
+        <div class="mt-3 flex gap-2">
+          <input type="number" placeholder="输入体重(kg)" class="w-full border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-transparent">
+          <button class="btn-health whitespace-nowrap">计算</button>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h3 class="font-medium mb-2">用药提醒</h3>
+        <p class="text-sm text-neutral-600 mb-3">免费版最多添加3种药物</p>
+        <button class="w-full border border-health text-health rounded-lg py-2">添加药品</button>
+      </div>
+      <div class="card opacity-70">
+        <h3 class="font-medium mb-2">Pro 健康增强</h3>
+        <ul class="text-sm text-neutral-600 space-y-2 mt-2">
+          <li>✓ 无限药品添加</li>
+          <li>✓ 睡眠分析 &amp; 月度报告</li>
+          <li>✓ 生日/纪念日提醒</li>
+          <li>✓ 家人健康共享</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 职场效率 -->
+    <section id="work" class="page">
+      <h2 class="text-[22px] font-semibold mb-6">职场效率</h2>
+      <div class="card mb-4">
+        <h3 class="font-medium mb-2">番茄计时器</h3>
+        <p class="text-sm text-neutral-600 mb-3">25分钟专注 · 5分钟休息</p>
+        <button class="btn-primary w-full">开始专注</button>
+      </div>
+      <div class="card mb-4">
+        <h3 class="font-medium mb-2">基础周报生成</h3>
+        <textarea placeholder="输入本周工作内容..." class="w-full border border-neutral-300 dark:border-neutral-700 rounded-lg p-3 text-sm h-24 bg-transparent resize-none"></textarea>
+        <button class="w-full mt-3 border border-neutral-300 dark:border-neutral-700 rounded-lg py-2">生成周报</button>
+      </div>
+      <div class="card opacity-70">
+        <h3 class="font-medium mb-2">Pro 职场工具</h3>
+        <ul class="text-sm text-neutral-600 space-y-2 mt-2">
+          <li>✓ 音频转会议纪要</li>
+          <li>✓ 高级多模板周报</li>
+          <li>✓ 快递物流代收提醒</li>
+          <li>✓ 多设备数据同步</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 设置页面 -->
+    <section id="setting" class="page">
+      <h2 class="text-[22px] font-semibold mb-6">个人设置</h2>
+      <div class="card mb-4">
+        <div class="flex justify-between items-center py-2 border-b border-neutral-200 dark:border-neutral-800">
+          <span>账户信息</span>
+          <i class="fa fa-angle-right text-neutral-600"></i>
+        </div>
+        <div class="flex justify-between items-center py-2 border-b border-neutral-200 dark:border-neutral-800">
+          <span>通知管理</span>
+          <i class="fa fa-angle-right text-neutral-600"></i>
+        </div>
+        <div class="flex justify-between items-center py-2 border-b border-neutral-200 dark:border-neutral-800">
+          <span>紧急联系人</span>
+          <i class="fa fa-angle-right text-neutral-600"></i>
+        </div>
+        <div class="flex justify-between items-center py-2">
+          <span>隐私与数据</span>
+          <i class="fa fa-angle-right text-neutral-600"></i>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h3 class="font-medium mb-3">订阅管理</h3>
+        <p class="text-sm text-neutral-600 mb-3">当前版本：免费版</p>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="border border-primary rounded-lg p-3 text-center">
+            <p class="text-primary font-bold">9.9元/月</p>
+            <p class="text-xs text-neutral-600">月付套餐</p>
+          </div>
+          <div class="border border-health rounded-lg p-3 text-center">
+            <p class="text-health font-bold">99元/年</p>
+            <p class="text-xs text-neutral-600">省17% 推荐</p>
+          </div>
+        </div>
+        <button class="btn-primary w-full mt-4">开通 Pro 会员</button>
+      </div>
+      <div class="text-sm text-neutral-600 text-center">
+        <p>©2025 安心生活管家</p>
+        <p class="mt-1"><a href="#" class="underline">隐私政策</a> · <a href="#" class="underline">服务条款</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 页面切换
+    const navItems = document.querySelectorAll('.nav-item')
+    const pages = document.querySelectorAll('.page')
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const target = item.dataset.page
+        // 导航激活
+        navItems.forEach(n => n.classList.remove('active'))
+        item.classList.add('active')
+        // 页面切换
+        pages.forEach(p => p.classList.remove('active'))
+        document.getElementById(target).classList.add('active')
+      })
+    })
+
+    // 深色模式
+    const darkBtn = document.getElementById('darkModeBtn')
+    const html = document.documentElement
+    // 跟随系统
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      html.classList.add('dark')
+      darkBtn.innerHTML = '<i class="fa fa-sun-o"></i>'
+    }
+    darkBtn.addEventListener('click', () => {
+      html.classList.toggle('dark')
+      if(html.classList.contains('dark')){
+        darkBtn.innerHTML = '<i class="fa fa-sun-o"></i>'
+      }else{
+        darkBtn.innerHTML = '<i class="fa fa-moon-o"></i>'
+      }
+    })
+  </script>
+</body>
+</html>
